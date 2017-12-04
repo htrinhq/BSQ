@@ -38,12 +38,13 @@ char *find_nbline(table_t *table, int *i)
 void next_line(table_t *table, struct stat s, int *x, int *y)
 {
 	table->square[*y][*x] = '\0';
+	table->column = *x;
 	*x = 0;
 	*y = *y + 1;
 	table->square[*y] = malloc(sizeof(char) * s.st_size);
 }
 
-char **fill_tab(table_t *table, struct stat s)
+char **fill_tab(table_t *table, struct stat s, boolean_t *boolean)
 {
 	int x = 0;
 	int i = 0;
@@ -55,11 +56,20 @@ char **fill_tab(table_t *table, struct stat s)
 		table->square[y][x] = table->size[i];
 		if (table->size[i] == '\n')
 			next_line(table, s, &x, &y);
-		else
+		else {
+			choose_b(table, boolean, i);
 			x = x + 1;
+		}
 		i = i + 1;
 	}
 	table->square[y][x] = '\0';
 	table->square[y + 1] = '\0';
 	return (table->square);
+}
+
+void fill_struct(table_t *table, struct stat s)
+{
+	table->size = malloc(sizeof(char) * s.st_size);
+	table->square = malloc(sizeof(char*) * s.st_size);
+	table->nbline = malloc(sizeof(char) * s.st_size);
 }
