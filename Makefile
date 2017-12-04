@@ -5,7 +5,8 @@
 ##
 ##
 
-SRC	=	source/main.c
+SRC	=	source/main.c	\
+		source/fill_tab.c
 
 OBJ	=	$(SRC:.c=.o)
 
