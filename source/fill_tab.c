@@ -32,7 +32,7 @@ char *find_nbline(char *size, char *nbline, int *i)
 	}
 	nbline[*i] = '\0';
 	*i = *i + 1;
-	return(nbline);
+	return (nbline);
 }
 
 void next_line(char **square, struct stat s, int *x, int *y)
