@@ -10,7 +10,6 @@ SRC	=	source/converters.c	\
 		source/hexaswitch.c	\
 		source/longshortswitch.c	\
 		source/my_evil_str.c	\
-		source/my_printf_bootstrap.c	\
 		source/my_printf.c	\
 		source/my_putchar.c	\
 		source/my_put_nbr.c	\
