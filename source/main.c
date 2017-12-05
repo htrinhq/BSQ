@@ -27,6 +27,8 @@ int main(int ac, char **av)
 	boolean->bp = 1;
 	boolean->bo = 1;
 	stat(av[1], &s);
+	if (s.st_size == 0)
+		return (84);
 	fill_struct(table, s);
 	read(fd, table->size, s.st_size);
 	table->square = fill_tab(table, s, boolean);

@@ -24,6 +24,13 @@ struct table {
 
 typedef struct table table_t;
 
+struct final {
+	int x;
+	int y;
+};
+
+typedef struct final final_t;
+
 void my_printf(const char *format, ...);
 char **fill_tab(table_t *table, struct stat s, boolean_t *boolean);
 void next_line(table_t *table, struct stat s, int *x, int *y);
