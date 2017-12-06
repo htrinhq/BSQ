@@ -90,9 +90,10 @@ int find_bsq(table_t *table, final_t *final, int path)
 				x2 = x;
 				y2 = y;
 				while (y2 <= final->y + y && a) {
-					while (x2 <= final->x + x && a) {
+					while (x2 <= final->x + x) {
 						if (table->square[y2][x2] == 'o') {
 							a = 0;
+							break;
 							x = x + 1;
 						}
 						x2 = x2 + 1;
