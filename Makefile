@@ -8,9 +8,9 @@
 SRC	=	source/main.c	\
 		source/fill_tab.c	\
 		source/my_getnbr.c	\
-		source/easy_case.c	\
 		source/find_angles.c	\
-		source/find_bsq.c
+		source/find_bsq.c	\
+		source/easy_case.c
 
 OBJ	=	$(SRC:.c=.o)
 

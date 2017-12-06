@@ -55,17 +55,21 @@ void empty_display(table_t *table)
 	display(table);
 }
 
-void single_column(table_t *table, int y)
+void booleans(boolean_t *boolean, table_t *table)
 {
-	if (table->column == 1) {
-		while (table->square[y][0] == 'o') {
-			y = y + 1;
-		}
-		table->square[y][0] = 'x';
-		display(table);
-		exit (0);
-	}
+	final_t *final = malloc(sizeof(final_t));
 
+	if (boolean->bo && !boolean->bp)
+		display(table);
+	else if (boolean->bp && !boolean->bo)
+		empty_display(table);
+	else {
+		final->x = 0;
+		final->y = 0;
+		boolean->path = 0;
+		find_bsq(table, final, boolean);
+	}
+	free(final);
 }
 
 int find_bsq(table_t *table, final_t *final, boolean_t *boolean)
@@ -73,7 +77,7 @@ int find_bsq(table_t *table, final_t *final, boolean_t *boolean)
 	int y = 0;
 	int x = 0;
 
-	single_column(table, y);
+	single_column(table, y, x);
 	if (find_angles(table, final, &x, &y)) {
 		final->x = final->x + 1;
 		final->y = final->y + 1;
@@ -85,30 +89,4 @@ int find_bsq(table_t *table, final_t *final, boolean_t *boolean)
 		}
 	}
 	return (0);
-}
-
-void booleans(boolean_t *boolean, table_t *table)
-{
-	if (boolean->bo && !boolean->bp)
-		display(table);
-	else if (boolean->bp && !boolean->bo)
-		empty_display(table);
-	else {
-		final_t *final = malloc(sizeof(final_t));
-		final->x = 0;
-		final->y = 0;
-		boolean->path = 0;
-		find_bsq(table, final, boolean);
-		free(final);
-	}
-}
-
-void choose_b(table_t *table, boolean_t *boolean, int i)
-{
-	if (table->size[i] == '.')
-		boolean->bo = 0;
-	else if (table->size[i] == 'o')
-		boolean->bp = 0;
-	else
-		exit(84);
 }

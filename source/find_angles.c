@@ -58,3 +58,32 @@ void mini_main(boolean_t *boolean, table_t *table, struct stat s, int fd)
 	free(boolean);
 	free(table);
 }
+
+void single_column(table_t *table, int y, int x)
+{
+	if (table->column == 1) {
+		while (table->square[y][0] == 'o') {
+			y = y + 1;
+		}
+		table->square[y][0] = 'x';
+		display(table);
+		exit (0);
+	} else if (my_getnbr(table->nbline) == 1) {
+		while (table->square[0][x] == 'o') {
+			x = x + 1;
+		}
+		table->square[0][x] = 'x';
+		display(table);
+		exit (0);
+	}
+}
+
+void choose_b(table_t *table, boolean_t *boolean, int i)
+{
+	if (table->size[i] == '.')
+		boolean->bo = 0;
+	else if (table->size[i] == 'o')
+		boolean->bp = 0;
+	else
+		exit(84);
+}
