@@ -24,16 +24,9 @@ int main(int ac, char **av)
 	fd = open(av[1], O_RDONLY);
 	if (fd == -1)
 		return (84);
-	boolean->bp = 1;
-	boolean->bo = 1;
 	stat(av[1], &s);
 	if (s.st_size == 0)
 		return (84);
-	fill_struct(table, s);
-	read(fd, table->size, s.st_size);
-	table->square = fill_tab(table, s, boolean);
-	booleans(boolean, table);
-	free(boolean);
-	free(table);
+	mini_main(boolean, table, s, fd);
 	return (0);
 }

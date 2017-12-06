@@ -52,5 +52,6 @@ void x_cross(final_t *final, table_t *table, final_t *inter);
 void fill_with_cross(int x, int y, final_t *final, table_t *table);
 int check_angles(table_t *table, final_t *final, int *x, int *y);
 int find_angles(table_t *table, final_t *final, int *x, int *y);
+void mini_main(boolean_t *boolean, table_t *table, struct stat s, int fd);
 
 #endif

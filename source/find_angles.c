@@ -25,7 +25,7 @@ int check_angles(table_t *table, final_t *final, int *x, int *y)
 			return (1);
 		else
 			return (0);
-		}
+	}
 }
 
 int find_angles(table_t *table, final_t *final, int *x, int *y)
@@ -45,4 +45,16 @@ int find_angles(table_t *table, final_t *final, int *x, int *y)
 		*x = *x + 1;
 	}
 	return (1);
+}
+
+void mini_main(boolean_t *boolean, table_t *table, struct stat s, int fd)
+{
+	boolean->bp = 1;
+	boolean->bo = 1;
+	fill_struct(table, s);
+	read(fd, table->size, s.st_size);
+	table->square = fill_tab(table, s, boolean);
+	booleans(boolean, table);
+	free(boolean);
+	free(table);
 }

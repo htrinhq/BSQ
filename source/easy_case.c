@@ -79,7 +79,7 @@ int find_bsq(table_t *table, final_t *final, boolean_t *boolean)
 		final->y = final->y + 1;
 		boolean->path = boolean->path + 1;
 		if (!find_bsq(table, final, boolean) && \
-			boolean->path == final->y) {
+		    boolean->path == final->y) {
 			fill_with_cross(x, y, final, table);
 			return (1);
 		}
@@ -99,6 +99,7 @@ void booleans(boolean_t *boolean, table_t *table)
 		final->y = 0;
 		boolean->path = 0;
 		find_bsq(table, final, boolean);
+		free(final);
 	}
 }
 
