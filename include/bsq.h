@@ -12,7 +12,6 @@ struct boolean {
 	int bp;
 	int bo;
 	int path;
-	int a;
 };
 
 typedef struct boolean boolean_t;
@@ -47,5 +46,11 @@ void line_supp(table_t *table);
 void empty_display(table_t *table);
 void booleans(boolean_t *boolean, table_t *table);
 void choose_b(table_t *table, boolean_t *boolean, int i);
+int check_square_y(table_t *table, final_t *final, int *x);
+int check_square(table_t *table, final_t *final, int *x, int *y);
+void x_cross(final_t *final, table_t *table, final_t *inter);
+void fill_with_cross(int x, int y, final_t *final, table_t *table);
+int check_angles(table_t *table, final_t *final, int *x, int *y);
+int find_angles(table_t *table, final_t *final, int *x, int *y);
 
 #endif
