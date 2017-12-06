@@ -11,6 +11,8 @@
 struct boolean {
 	int bp;
 	int bo;
+	int path;
+	int a;
 };
 
 typedef struct boolean boolean_t;
@@ -27,6 +29,8 @@ typedef struct table table_t;
 struct final {
 	int x;
 	int y;
+	int inter_x;
+	int inter_y;
 };
 
 typedef struct final final_t;

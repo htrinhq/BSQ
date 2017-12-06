@@ -55,15 +55,8 @@ void empty_display(table_t *table)
 	display(table);
 }
 
-int find_bsq(table_t *table, final_t *final, int path)
+void single_column(table_t *table, int y)
 {
-	int y = 0;
-	int x = 0;
-	int y2;
-	int x2;
-	int line = my_getnbr(table->nbline);
-	int a = 1;
-
 	if (table->column == 1) {
 		while (table->square[y][0] == 'o') {
 			y = y + 1;
@@ -72,59 +65,108 @@ int find_bsq(table_t *table, final_t *final, int path)
 		display(table);
 		exit (0);
 	}
-	while (y < line) {
-		a = 1;
-		if (!table->square[y + final->y])
+
+}
+
+int check_square_y(table_t *table, final_t *final, int *x)
+{
+	while (final->inter_x <= final->x + *x) {
+		if (table->square[final->inter_y][final->inter_x] == 'o')
 			return (0);
-		if (table->square[y][x] == '\0') {
-			x = 0;
-			y = y + 1;
-		} else if (table->square[y][x] == '.' && table->square[y][x + final->x] != '\0') {
-			if (table->square[y][x + final->x] != '.')
-				a = 0;
-			if (table->square[y + final->y][x + final->x] != '.')
-				a = 0;
-			if (table->square[y + final->y][x] != '.')
-				a = 0;
-			if (a) {
-				x2 = x;
-				y2 = y;
-				while (y2 <= final->y + y && a) {
-					while (x2 <= final->x + x) {
-						if (table->square[y2][x2] == 'o') {
-							a = 0;
-							break;
-							x = x + 1;
-						}
-						x2 = x2 + 1;
-					}
-					x2 = x;
-					y2 = y2 + 1;
-				}
-				if (a)
-					break;
-			}
-		}
-		x = x + 1;
+		final->inter_x = final->inter_x + 1;
 	}
+	return (1);
+}
+
+int check_square(table_t *table, final_t *final, int *x, int *y)
+{
+	final->inter_x = *x;
+	final->inter_y = *y;
+	while (final->inter_y <= final->y + *y) {
+		if (!check_square_y(table, final, x))
+			return (0);
+		final->inter_x = *x;
+		final->inter_y = final->inter_y + 1;
+	}
+	return (1);
+}
+
+void x_cross(final_t *final, table_t *table, final_t *inter)
+{
+	while (inter->inter_x <= final->x + inter->x) {
+		table->square[inter->inter_y][inter->inter_x] = 'x';
+		inter->inter_x = inter->inter_x + 1;
+	}
+}
+
+void fill_with_cross(int x, int y, final_t *final, table_t *table)
+{
+	final_t *inter = malloc(sizeof(final_t));
+
+	inter->x = x;
+	inter->y = y;
+	inter->inter_x = x;
+	inter->inter_y = y;
+	final->x = final->x - 1;
+	final->y = final->y - 1;
+	while (inter->inter_y <= final->y + inter->y) {
+		x_cross(final, table, inter);
+		inter->inter_x = inter->x;
+		inter->inter_y = inter->inter_y + 1;
+	}
+	display(table);
+	free(inter);
+}
+
+/*int a_exist(final_t *final, table_t *table, int path, int a)
+{
 	if (a) {
 		final->x = final->x + 1;
 		final->y = final->y + 1;
 		path = path + 1;
 		if (!find_bsq(table, final, path) && path == final->y) {
-			x2 = x;
-			y2 = y;
-			final->x = final->x - 1;
-			final->y = final->y - 1;
-			while (y2 <= final->y + y) {
-				while (x2 <= final->x + x) {
-					table->square[y2][x2] = 'x';
-					x2 = x2 + 1;
-				}
-				x2 = x;
-				y2 = y2 + 1;
+			fill_with_cross(x, y, final, table);
+			return (1);
+		}
+	} else
+		return (0);
+}*/
+
+int find_bsq(table_t *table, final_t *final, boolean_t *boolean)
+{
+	int y = 0;
+	int x = 0;
+	int line = my_getnbr(table->nbline);
+	//boolean->a = 1;
+
+	single_column(table, y);
+	while (y < line) {
+		boolean->a = 1;
+		if (!table->square[y + final->y])
+			return (0);
+		if (table->square[y][x] == '\0') {
+			x = 0;
+			y = y + 1;
+		} else if (table->square[y][x] == '.' && table->square[y][x + final->x]) {
+			if (table->square[y][x + final->x] != '.')
+				boolean->a = 0;
+			if (table->square[y + final->y][x + final->x] != '.')
+				boolean->a = 0;
+			if (table->square[y + final->y][x] != '.')
+				boolean->a = 0;
+			if (boolean->a) {
+				if (check_square(table, final, &x, &y))
+					break;
 			}
-			display(table);
+		}
+		x = x + 1;
+	}
+	if (boolean->a) {
+		final->x = final->x + 1;
+		final->y = final->y + 1;
+		boolean->path = boolean->path + 1;
+		if (!find_bsq(table, final, boolean) && boolean->path == final->y) {
+			fill_with_cross(x, y, final, table);
 			return (1);
 		}
 	}
@@ -133,7 +175,7 @@ int find_bsq(table_t *table, final_t *final, int path)
 
 void booleans(boolean_t *boolean, table_t *table)
 {
-	int path = 0;
+	//int path = 0;
 
 	if (boolean->bo && !boolean->bp)
 		display(table);
@@ -143,7 +185,8 @@ void booleans(boolean_t *boolean, table_t *table)
 		final_t *final = malloc(sizeof(final_t));
 		final->x = 0;
 		final->y = 0;
-		find_bsq(table, final, path);
+		boolean->path = 0;
+		find_bsq(table, final, boolean);
 	}
 }
 
