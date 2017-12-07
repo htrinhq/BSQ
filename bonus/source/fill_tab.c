@@ -12,31 +12,6 @@
 #include <stdlib.h>
 #include "bsq.h"
 
-#define	GREEN	\e[32m
-#define	RESET	\e[0m
-
-void display(table_t *table)
-{
-	int y = 0;
-	int x = 0;
-
-	while (table->square[y][x]) {
-		while (table->square[y][x]){
-			if (table->square[y][x] == 'x')
-				my_printf("\e[32m%c\e[0m", table->square[y][x]);
-			else if (table->square[y][x] == 'o')
-				my_printf("\e[33m%c\e[0m", table->square[y][x]);
-			else
-				my_printf("\e[34m%c\e[0m", table->square[y][x]);
-			x = x + 1;
-		}
-		y = y + 1;
-		x = 0;
-		if (table->square[y])
-			my_printf("\n");
-	}
-}
-
 char *find_nbline(table_t *table, int *i)
 {
 	while (table->size[*i] != '\n') {

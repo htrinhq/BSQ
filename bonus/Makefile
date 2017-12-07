@@ -10,7 +10,8 @@ SRC	=	source/main.c	\
 		source/my_getnbr.c	\
 		source/find_angles.c	\
 		source/find_bsq.c	\
-		source/easy_case.c
+		source/easy_case.c	\
+		source/display.c
 
 OBJ	=	$(SRC:.c=.o)
 

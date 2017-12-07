@@ -55,5 +55,8 @@ int find_angles(table_t *table, final_t *final, int *x, int *y);
 void mini_main(boolean_t *boolean, table_t *table, struct stat s, int fd);
 void single_column(table_t *table, int y, int x);
 int find_bsq(table_t *table, final_t *final, boolean_t *boolean);
+void disp_colors(table_t *table, int *x, int y);
+void disp_x(table_t *table, int *x, int y);
+void display(table_t *table);
 
 #endif
