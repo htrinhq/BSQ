@@ -21,12 +21,17 @@ int main(int ac, char **av)
 
 	if (ac != 2)
 		return (84);
-	fd = open(av[1], O_RDONLY);
-	if (fd == -1)
-		return (84);
-	stat(av[1], &s);
-	if (s.st_size == 0)
-		return (84);
-	mini_main(boolean, table, s, fd);
-	return (0);
+	else if (av[1][0] == '-' && av[1][1] == 'h') {
+		my_printf("\e[33mThe program finds the biggest square made of dots in a map given as parameter and fills it with \e[32mgreen\e[33m cross.\n\e[0m");
+		return (0);
+	} else {
+		fd = open(av[1], O_RDONLY);
+		if (fd == -1)
+			return (84);
+		stat(av[1], &s);
+		if (s.st_size == 0)
+			return (84);
+		mini_main(boolean, table, s, fd);
+		return (0);
+	}
 }

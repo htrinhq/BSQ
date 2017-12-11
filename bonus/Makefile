@@ -15,7 +15,7 @@ SRC	=	source/main.c	\
 
 OBJ	=	$(SRC:.c=.o)
 
-NAME	=	bonusq
+NAME	=	bonus
 
 CFLAGS	=	-W -Wall -Wextra -I include -g
 
