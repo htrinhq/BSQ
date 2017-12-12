@@ -12,7 +12,7 @@
 int my_put_nbr(int c);
 void my_putchar(char c);
 int my_strlen(char const *str);
-int my_putstr(char const *str);
+void my_putstr(char const *str);
 int sum_stdarg(int i, int nb, ...);
 int error(char const *s);
 int disp_stdarg(char *s, ...);
@@ -29,17 +29,17 @@ void hexaconvert(unsigned int nb);
 void octalconvert(unsigned int nb);
 void bighexaconvert(unsigned int nb);
 void binaryconvert(unsigned int nb);
-int dieseswitch (const char *format, int x, va_list list);
-int longlongswitch(const char *format, int x, va_list list);
-int longswitch(const char *format, int x, va_list list);
-int shortswitch(const char *format, int x, va_list list);
-int shortshortswitch(const char *format, int x, va_list list);
+void dieseswitch (const char *format, int *x, va_list list);
+void longlongswitch(const char *format, int *x, va_list list);
+void longswitch(const char *format, int *x, va_list list);
+void shortswitch(const char *format, int *x, va_list list);
+void shortshortswitch(const char *format, int *x, va_list list);
 void hexaswitch(char *number, unsigned int retain, int o);
 void hexasecswitch(char *number, unsigned int retain, int o);
 void bighexaswitch(char *number, unsigned int retain, int o);
 void bighexasecswitch(char *number, unsigned int retain, int o);
-int printfswitchsec(const char *format, int x, va_list list);
-int printfswitchone(const char *format, int x, va_list list);
-int my_printf_switch(const char *format, int x, va_list list);
+void printfswitchsec(const char *format, int *x, va_list list);
+void printfswitchone(const char *format, int *x, va_list list);
+void my_printf_switch(const char *format, int *x, va_list list);
 
 #endif

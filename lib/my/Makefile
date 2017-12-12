@@ -20,7 +20,7 @@ SRC	=	source/converters.c	\
 
 OBJ	=	$(SRC:.c=.o)
 
-NAME	=	libmy.a
+NAME	=	libprintf.a
 
 CFLAGS	=	-W -Wall -Wextra -Werror -I include
 

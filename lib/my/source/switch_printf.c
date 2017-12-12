@@ -7,69 +7,66 @@
 
 #include "stdyo.h"
 
-int printfswitchsec(const char *format, int x, va_list list)
+void printfswitchsec(const char *format, int *x, va_list list)
 {
-	switch (format[x]) {
+	switch (format[*x]) {
 		case 'x':
 			bighexaconvert(va_arg(list, unsigned int));
-			return (x);
+			break;
 		case '#':
-			x = x + 1;
-			x = dieseswitch(format, x, list);
-			return (x);
+			*x = *x + 1;
+			dieseswitch(format, x, list);
+			break;
 		case 'l':
-			x = x + 1;
-			x = longswitch(format, x, list);
-			return (x);
+			*x = *x + 1;
+			longswitch(format, x, list);
+			break;
 		case 'h':
-			x = x + 1;
-			x = shortswitch(format, x, list);
-			return (x);
+			*x = *x + 1;
+			shortswitch(format, x, list);
+			break;
 	}
-	return (x);
 }
 
-int printfswitchone(const char *format, int x, va_list list)
+void printfswitchone(const char *format, int *x, va_list list)
 {
-	switch (format[x]) {
+	switch (format[*x]) {
 		case 'u':
 			my_unsigned_putnbr(va_arg(list, unsigned int));
-			return (x);
+			break;
 		case 'o':
 			octalconvert(va_arg(list, unsigned int));
-			return (x);
+			break;
 		case 'b':
 			binaryconvert(va_arg(list, unsigned int));
-			return (x);
+			break;
 		case 'X':
 			hexaconvert(va_arg(list, unsigned int));
-			return (x);
+			break;
 		default:
-			x = printfswitchsec(format, x, list);
-			return (x);
+			printfswitchsec(format, x, list);
+			break;
 	}
-	return (x);
 }
 
-int my_printf_switch(const char *format, int x, va_list list)
+void my_printf_switch(const char *format, int *x, va_list list)
 {
-	switch (format[x]) {
+	switch (format[*x]) {
 		case 's':
 			my_putstr(va_arg(list, char*));
-			return (x);
+			break;
 		case 'd':
 		case 'i':
 			my_put_nbr(va_arg(list, int));
-			return (x);
+			break;
 		case 'c':
 			my_putchar(va_arg(list, int));
-			return (x);
+			break;
 		case '%':
 			my_putchar('%');
-			return (x);
+			break;
 		default:
-			x = printfswitchone(format, x, list);
-			return (x);
+			printfswitchone(format, x, list);
+			break;
 	}
-	return (x);
 }

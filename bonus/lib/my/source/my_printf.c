@@ -6,7 +6,6 @@
 */
 
 #include "stdyo.h"
-#include <stdio.h>
 #include <stdlib.h>
 #include <stdarg.h>
 
@@ -41,7 +40,7 @@ int my_printf(const char *format, ...)
 	while (format[x] != '\0') {
 		if (format[x] == '%') {
 			x = x + 1;
-			x = my_printf_switch(format, x, list);
+			my_printf_switch(format, &x, list);
 			x = x + 1;
 		} else {
 			my_putchar(format[x]);

@@ -17,11 +17,11 @@ void display(table_t *table)
 	int y = 0;
 
 	while (table->square[y]) {
-		my_printf("%s", table->square[y]);
+		write(1, table->square[y], my_strlen(table->square[y]));
 		free(table->square[y]);
 		y = y + 1;
 		if (table->square[y])
-			my_printf("\n");
+			write(1, "\n", 1);
 	}
 }
 

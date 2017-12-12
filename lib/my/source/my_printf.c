@@ -30,7 +30,7 @@ int erasenb(const char *format, int x)
 	return (x);
 }
 
-int my_printf(const char *format, ...)
+void my_printf(const char *format, ...)
 
 {
 	int x = 0;
@@ -40,13 +40,10 @@ int my_printf(const char *format, ...)
 	while (format[x] != '\0') {
 		if (format[x] == '%') {
 			x = x + 1;
-			x = my_printf_switch(format, x, list);
-			x = x + 1;
-		} else {
+			my_printf_switch(format, &x, list);
+		} else
 			my_putchar(format[x]);
-			x = x + 1;
-		}
+		x = x + 1;
 	}
 	va_end(list);
-	return (0);
 }

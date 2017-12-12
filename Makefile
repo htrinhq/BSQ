@@ -16,9 +16,9 @@ OBJ	=	$(SRC:.c=.o)
 
 NAME	=	bsq
 
-CFLAGS	=	-W -Wall -Wextra -I include -g
+CFLAGS	=	-W -Wall -Wextra -I include -g -O3
 
-LDFLAGS	=	-L ./lib/my -lmy
+LDFLAGS	=	-L ./lib/my -lprintf
 
 all:	libmake $(NAME)
 
