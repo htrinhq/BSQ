@@ -53,6 +53,7 @@ void empty_display(table_t *table)
 	else
 		line_supp(table);
 	display(table);
+	free(table);
 }
 
 void booleans(boolean_t *boolean, table_t *table)

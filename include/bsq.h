@@ -20,6 +20,7 @@ struct table {
 	char *size;
 	char **square;
 	char *nbline;
+	int line;
 	int column;
 };
 
@@ -36,7 +37,7 @@ typedef struct final final_t;
 
 void my_printf(const char *format, ...);
 char **fill_tab(table_t *table, struct stat s, boolean_t *boolean);
-void next_line(table_t *table, struct stat s, int *x, int *y);
+void next_line(table_t *table, int *x, int *y);
 char *find_nbline(table_t *table, int *i);
 void display(table_t *table);
 void fill_struct(table_t *table, struct stat s);

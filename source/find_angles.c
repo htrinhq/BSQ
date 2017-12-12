@@ -30,16 +30,14 @@ int check_angles(table_t *table, final_t *final, int *x, int *y)
 
 int find_angles(table_t *table, final_t *final, int *x, int *y)
 {
-	int line = my_getnbr(table->nbline);
-
-	while (*y < line) {
+	while (*y < table->line) {
 		if (!table->square[*y + final->y])
 			return (0);
-		if (table->square[*y][*x] == '\0') {
+		if ((*y + final->y) >= table->line || (*x + final->x) >= table->column) {
 			*x = 0;
 			*y = *y + 1;
 		} else if (table->square[*y][*x] == '.' && \
-			   table->square[*y][*x + final->x] && \
+			   table->square[*y + final->y][*x + final->x] && \
 			   check_angles(table, final, x, y))
 			break;
 		*x = *x + 1;
@@ -56,7 +54,6 @@ void mini_main(boolean_t *boolean, table_t *table, struct stat s, int fd)
 	table->square = fill_tab(table, s, boolean);
 	booleans(boolean, table);
 	free(boolean);
-	free(table);
 }
 
 void single_column(table_t *table, int y, int x)
@@ -68,7 +65,7 @@ void single_column(table_t *table, int y, int x)
 		table->square[y][0] = 'x';
 		display(table);
 		exit (0);
-	} else if (my_getnbr(table->nbline) == 1) {
+	} else if (table->line == 1) {
 		while (table->square[0][x] == 'o') {
 			x = x + 1;
 		}
@@ -84,6 +81,9 @@ void choose_b(table_t *table, boolean_t *boolean, int i)
 		boolean->bo = 0;
 	else if (table->size[i] == 'o')
 		boolean->bp = 0;
-	else
+	else {
+		free(table);
+		free(boolean);
 		exit(84);
+	}
 }

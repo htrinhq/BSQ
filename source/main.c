@@ -28,5 +28,8 @@ int main(int ac, char **av)
 	if (s.st_size == 0)
 		return (84);
 	mini_main(boolean, table, s, fd);
+	free(table->nbline);
+	free(table->square);
+	//free(table->size);
 	return (0);
 }

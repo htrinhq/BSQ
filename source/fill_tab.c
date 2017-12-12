@@ -18,6 +18,7 @@ void display(table_t *table)
 
 	while (table->square[y]) {
 		my_printf("%s", table->square[y]);
+		free(table->square[y]);
 		y = y + 1;
 		if (table->square[y])
 			my_printf("\n");
@@ -35,13 +36,13 @@ char *find_nbline(table_t *table, int *i)
 	return (table->nbline);
 }
 
-void next_line(table_t *table, struct stat s, int *x, int *y)
+void next_line(table_t *table, int *x, int *y)
 {
 	table->square[*y][*x] = '\0';
 	table->column = *x;
 	*x = 0;
 	*y = *y + 1;
-	table->square[*y] = malloc(sizeof(char) * s.st_size);
+	table->square[*y] = malloc(sizeof(char) * (table->column + 1));
 }
 
 char **fill_tab(table_t *table, struct stat s, boolean_t *boolean)
@@ -52,10 +53,11 @@ char **fill_tab(table_t *table, struct stat s, boolean_t *boolean)
 
 	table->square[y] = malloc(sizeof(char) * s.st_size);
 	table->nbline = find_nbline(table, &i);
+	table->line = my_getnbr(table->nbline);
 	while (i != s.st_size) {
 		table->square[y][x] = table->size[i];
 		if (table->size[i] == '\n')
-			next_line(table, s, &x, &y);
+			next_line(table, &x, &y);
 		else {
 			choose_b(table, boolean, i);
 			x = x + 1;
