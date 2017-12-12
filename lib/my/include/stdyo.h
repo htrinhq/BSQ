@@ -12,7 +12,7 @@
 int my_put_nbr(int c);
 void my_putchar(char c);
 int my_strlen(char const *str);
-int my_putstr(char const *str);
+void my_putstr(char const *str);
 int sum_stdarg(int i, int nb, ...);
 int error(char const *s);
 int disp_stdarg(char *s, ...);
