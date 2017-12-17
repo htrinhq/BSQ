@@ -16,7 +16,7 @@ OBJ	=	$(SRC:.c=.o)
 
 NAME	=	bsq
 
-CFLAGS	=	-W -Wall -Wextra -I include -g -O3
+CFLAGS	=	-W -Wall -Wextra -I include -g
 
 LDFLAGS	=	-L ./lib/my -lprintf
 
